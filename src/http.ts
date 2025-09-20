@@ -10,5 +10,5 @@ export async function fetchCities(userInput: string) {
     throw new Error("Failed to fetch data!");
   }
   const data = await response.json();
-  return data.results as City[];
+  return (data.results ?? []) as City[];
 }
