@@ -23,24 +23,3 @@
   background-color: transparent;
   font-size: 1.5rem;
 }
-.resultPosition {
-  position: absolute;
-  top: 100%;
-  width: 100%;
-}
-.resultList {
-  padding: 1rem;
-  border: 1px solid $font-color-main;
-  text-align: center;
-  background-color: $bg-color;
-  list-style: none;
-}
-.listElement {
-  font-size: 1.6rem;
-  margin: 0.2rem;
-  padding: 0.3rem;
-  border-bottom: 1px solid $font-color-main;
-  .cityName {
-    font-weight: bold;
-  }
-}

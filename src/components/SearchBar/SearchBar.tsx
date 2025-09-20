@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, useCallback } from "react";
+import SearchResult from "../SearchResult/SearchResult.tsx";
 import useFetch from "../../hooks/useFetch.ts";
 import useDebounce from "../../hooks/useDebounce.ts";
 import { fetchCities } from "../../http.ts";
@@ -26,25 +27,18 @@ export default function SearchBar() {
           type="text"
           className={styles.input}
           id="locationInput"
+          placeholder="Type first 3 letters"
           value={userInput}
           onChange={(e) => handleInputChange(e)}
         />
         <button className={styles.locationButton}>⊕</button>
       </div>
-      {!isLoading && userInput.length > 2 && cities.length > 0 ? (
-        <ul className={`${styles.resultList} ${styles.resultPosition}`}>
-          {cities.map((city) => {
-            return (
-              <li key={city.id} className={styles.listElement}>
-                <span className={styles.cityName}>{city.name}</span>,{" "}
-                {city.admin1}, {city.country}
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        ""
-      )}
+      <SearchResult
+        cities={cities}
+        error={error}
+        isLoading={isLoading}
+        debouncedValue={debouncedValue}
+      />
     </div>
   );
 }

@@ -1,0 +1,22 @@
+@use "../../styles/variables.scss" as *;
+.resultPosition {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  background-color: $bg-color;
+}
+.resultList {
+  border: 1px solid $font-color-main;
+  list-style: none;
+}
+.listElement {
+  margin: 0.2rem;
+  padding: 0.3rem;
+  border-bottom: 1px solid $font-color-main;
+  .cityName {
+    font-weight: bold;
+  }
+}
