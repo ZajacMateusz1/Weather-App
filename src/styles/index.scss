@@ -11,15 +11,21 @@ html {
   background-color: $bg-color;
 }
 #root {
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
   font-family: $font-sans;
   min-height: 100vh;
   max-width: 1200px;
   color: $font-color-main;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    font-family: $font-mont;
-  }
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $font-mont;
+}
+h2 {
+  font-size: 2.2rem;
 }
