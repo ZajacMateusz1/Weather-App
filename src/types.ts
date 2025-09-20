@@ -4,5 +4,6 @@ export interface City {
   latitude: number;
   longitude: number;
   country: string;
+  admin1: string;
   timezone: string;
 }

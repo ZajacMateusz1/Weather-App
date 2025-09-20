@@ -11,7 +11,6 @@ export default function SearchBar() {
   }
   const fetchCitiesFn = useCallback(() => fetchCities(userInput), [userInput]);
   const { data: cities, error, isLoading } = useFetch<City>(fetchCitiesFn);
-
   return (
     <div className={styles.searchBar}>
       <div className="inputDiv">
@@ -27,13 +26,20 @@ export default function SearchBar() {
         />
         <button className={styles.locationButton}>⊕</button>
       </div>
-      {
-        <ul>
+      {!isLoading && userInput.length > 2 && cities.length > 0 ? (
+        <ul className={`${styles.resultList} ${styles.resultPosition}`}>
           {cities?.map((city) => {
-            return <li key={city.id}>{city.name}</li>;
+            return (
+              <li key={city.id} className={styles.listElement}>
+                <span className={styles.cityName}>{city.name}</span>,{" "}
+                {city.admin1}, {city.country}
+              </li>
+            );
           })}
         </ul>
-      }
+      ) : (
+        ""
+      )}
     </div>
   );
 }
