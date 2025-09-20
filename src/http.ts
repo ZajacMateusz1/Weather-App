@@ -1,6 +1,6 @@
 import type { City } from "./types.ts";
 export async function fetchCities(userInput: string) {
-  if (userInput === "") return [] as City[];
+  if (userInput.trim() === "") return [] as City[];
   const response = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
       userInput

@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent, useCallback } from "react";
 import useFetch from "../../hooks/useFetch.ts";
+import useDebounce from "../../hooks/useDebounce.ts";
 import { fetchCities } from "../../http.ts";
 import type { City } from "../../types.ts";
 import styles from "./SearchBar.module.scss";
@@ -9,7 +10,11 @@ export default function SearchBar() {
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     setUserInput(e.target.value);
   }
-  const fetchCitiesFn = useCallback(() => fetchCities(userInput), [userInput]);
+  const debouncedValue = useDebounce(userInput, 300);
+  const fetchCitiesFn = useCallback(
+    () => fetchCities(debouncedValue),
+    [debouncedValue]
+  );
   const { data: cities, error, isLoading } = useFetch<City>(fetchCitiesFn);
   return (
     <div className={styles.searchBar}>
@@ -28,7 +33,7 @@ export default function SearchBar() {
       </div>
       {!isLoading && userInput.length > 2 && cities.length > 0 ? (
         <ul className={`${styles.resultList} ${styles.resultPosition}`}>
-          {cities?.map((city) => {
+          {cities.map((city) => {
             return (
               <li key={city.id} className={styles.listElement}>
                 <span className={styles.cityName}>{city.name}</span>,{" "}
