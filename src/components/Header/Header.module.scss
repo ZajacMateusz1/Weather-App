@@ -1,0 +1,19 @@
+@use "../../styles/mixin.scss" as *;
+.header {
+  display: flex;
+  flex-direction: column;
+}
+.logoAndName {
+  @include flex-center;
+}
+.h1 {
+  font-size: 3rem;
+}
+.imgContainer {
+  flex-basis: 20%;
+}
+.img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
