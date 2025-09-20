@@ -3,7 +3,7 @@ import styles from "./CurrentWeather.module.scss";
 export default function CurrentWeather() {
   return (
     <main className={styles.main}>
-      <h2 className={styles.h2}>Current weather in Warsaw</h2>
+      <h2>Current weather in Warsaw</h2>
       <div className={styles.weatherInfo}>
         <WeatherInfoCard value={22} unit="&deg;C" icon="🌡️">
           Temperature
