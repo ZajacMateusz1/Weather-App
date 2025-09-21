@@ -22,14 +22,15 @@ export default function SearchResult({
           return (
             <li key={city.id} className={styles.listElement}>
               <span className={styles.cityName}>{city.name}</span>,{" "}
-              {city.admin1}, {city.country}
+              {city.admin1}
+              {city.admin2 ? `, ${city.admin2}` : ""}, {city.country}
             </li>
           );
         })}
       </ul>
     );
   } else if (error) result = <Error>{error}</Error>;
-  else if (!isLoading && debouncedValue.length > 0 && cities.length === 0)
+  else if (!isLoading && debouncedValue.length > 2 && cities.length === 0)
     result = <p>No results found</p>;
   else if (isLoading) result = <p>Loading data...</p>;
   return <div className={styles.resultPosition}>{result}</div>;
