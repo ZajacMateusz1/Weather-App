@@ -20,11 +20,7 @@ export default function SearchBar() {
     () => fetchCities(debouncedValue),
     [debouncedValue]
   );
-  const {
-    data: cities,
-    error,
-    isLoading,
-  } = useFetch<City[]>(fetchCitiesFn, []);
+  const { data: cities, error, isLoading } = useFetch<City[]>(fetchCitiesFn);
   return (
     <div className={styles.searchBar}>
       <div className={styles.inputDiv}>

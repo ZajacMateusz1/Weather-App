@@ -32,14 +32,11 @@ export default function WeatherContextProvider({
     data: hourlyWeather,
     error: hourlyWeatherError,
     isLoading: hourlyWeatherIsLoading,
-  } = useFetch<HourlyWeatherResponse>(
-    fetchDailyWeatherInfoCallback,
-    {} as HourlyWeatherResponse
-  );
+  } = useFetch<HourlyWeatherResponse>(fetchDailyWeatherInfoCallback);
   const weatherCtx: WeatherContextTypes = {
     city: currentCity,
     handleSetNewCity: handleSetNewCity,
-    hourlyWeather: hourlyWeather,
+    hourlyWeather: hourlyWeather ?? null,
     hourlyWeatherError: hourlyWeatherError,
     hourlyWeatherIsLoading: hourlyWeatherIsLoading,
   };

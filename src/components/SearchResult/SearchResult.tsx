@@ -5,7 +5,7 @@ import Error from "../Error/Error.tsx";
 import type { City } from "../../types.ts";
 import styles from "./SearchResult.module.scss";
 interface SearchResultProps {
-  cities: City[];
+  cities: City[] | null;
   error: string | null;
   isLoading: boolean;
   clearInput: () => void;
@@ -18,10 +18,12 @@ export default function SearchResult({
 }: SearchResultProps) {
   const { handleSetNewCity } = useContext(WeatherContext);
   let result: ReactNode = null;
-  if (!isLoading && cities.length > 0) {
+  if (error) result = <Error>{error}</Error>;
+  if (isLoading) result = <p className={styles.p}>Loading data...</p>;
+  if (!isLoading && cities!.length > 0) {
     result = (
       <ul className={styles.resultList}>
-        {cities.map((city) => {
+        {cities!.map((city) => {
           return (
             <button
               key={city.id}
@@ -41,9 +43,7 @@ export default function SearchResult({
         })}
       </ul>
     );
-  } else if (error) result = <Error>{error}</Error>;
-  else if (!isLoading && cities.length === 0)
+  } else if (!isLoading && cities!.length === 0)
     result = <p className={styles.p}>No results found</p>;
-  else if (isLoading) result = <p className={styles.p}>Loading data...</p>;
   return <div className={styles.resultPosition}>{result}</div>;
 }

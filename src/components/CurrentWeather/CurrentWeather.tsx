@@ -7,7 +7,7 @@ export default function CurrentWeather() {
   const { hourlyWeather, hourlyWeatherError, hourlyWeatherIsLoading, city } =
     useContext(WeatherContext);
   if (hourlyWeatherError) return <Error>{hourlyWeatherError}</Error>;
-  if (hourlyWeatherIsLoading || Object.keys(hourlyWeather).length === 0) {
+  if (hourlyWeatherIsLoading || !hourlyWeather) {
     return <p className={styles.pLoading}>Loading...</p>;
   }
   const values = hourlyWeather.hourly;
