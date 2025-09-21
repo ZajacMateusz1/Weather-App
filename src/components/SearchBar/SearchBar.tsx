@@ -8,18 +8,26 @@ import styles from "./SearchBar.module.scss";
 
 export default function SearchBar() {
   const [userInput, setUserInput] = useState<string>("");
+
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     setUserInput(e.target.value);
+  }
+  function clearInput() {
+    setUserInput("");
   }
   const debouncedValue = useDebounce(userInput, 300);
   const fetchCitiesFn = useCallback(
     () => fetchCities(debouncedValue),
     [debouncedValue]
   );
-  const { data: cities, error, isLoading } = useFetch<City>(fetchCitiesFn);
+  const {
+    data: cities,
+    error,
+    isLoading,
+  } = useFetch<City[]>(fetchCitiesFn, []);
   return (
     <div className={styles.searchBar}>
-      <div className="inputDiv">
+      <div className={styles.inputDiv}>
         <label htmlFor="locationInput" className={styles.glassSymbol}>
           🔍
         </label>
@@ -33,12 +41,14 @@ export default function SearchBar() {
         />
         <button className={styles.locationButton}>⊕</button>
       </div>
-      <SearchResult
-        cities={cities}
-        error={error}
-        isLoading={isLoading}
-        debouncedValue={debouncedValue}
-      />
+      {userInput.length > 2 && (
+        <SearchResult
+          cities={cities}
+          error={error}
+          isLoading={isLoading}
+          clearInput={clearInput}
+        />
+      )}
     </div>
   );
 }

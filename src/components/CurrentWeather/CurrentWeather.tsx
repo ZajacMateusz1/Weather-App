@@ -1,20 +1,47 @@
+import { useContext } from "react";
+import WeatherContext from "../../store/weather-context.tsx";
 import WeatherInfoCard from "../WeatherInfoCard/WeatherInfoCard.tsx";
+import Error from "../Error/Error.tsx";
 import styles from "./CurrentWeather.module.scss";
 export default function CurrentWeather() {
+  const { hourlyWeather, hourlyWeatherError, hourlyWeatherIsLoading, city } =
+    useContext(WeatherContext);
+  if (hourlyWeatherError) return <Error>{hourlyWeatherError}</Error>;
+  if (hourlyWeatherIsLoading || Object.keys(hourlyWeather).length === 0) {
+    return <p className={styles.pLoading}>Loading...</p>;
+  }
+  const values = hourlyWeather.hourly;
+  const units = hourlyWeather.hourly_units;
   return (
     <main className={styles.main}>
-      <h2>Current weather in Warsaw</h2>
+      <h2>Current weather in {city.name}</h2>
       <div className={styles.weatherInfo}>
-        <WeatherInfoCard value={22} unit="&deg;C" icon="🌡️">
+        <WeatherInfoCard
+          value={values.temperature_2m[0]}
+          unit={units.temperature_2m}
+          icon="🌡️"
+        >
           Temperature
         </WeatherInfoCard>
-        <WeatherInfoCard value={12} unit="km/h" icon="🍃">
+        <WeatherInfoCard
+          value={values.wind_speed_10m[0]}
+          unit={units.wind_speed_10m}
+          icon="🍃"
+        >
           Wind
         </WeatherInfoCard>
-        <WeatherInfoCard value="Good" unit="" icon="🌍">
-          Air Quality
+        <WeatherInfoCard
+          value={values.pressure_msl[0]}
+          unit={units.pressure_msl}
+          icon="🧭"
+        >
+          Pressure
         </WeatherInfoCard>
-        <WeatherInfoCard value={30} unit="%" icon="🌧️">
+        <WeatherInfoCard
+          value={values.precipitation_probability[0]}
+          unit={units.precipitation_probability}
+          icon="🌧️"
+        >
           Precipitation
         </WeatherInfoCard>
       </div>

@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import type { ReactNode } from "react";
+import WeatherContext from "../../store/weather-context.tsx";
 import Error from "../Error/Error.tsx";
 import type { City } from "../../types.ts";
 import styles from "./SearchResult.module.scss";
@@ -6,32 +8,42 @@ interface SearchResultProps {
   cities: City[];
   error: string | null;
   isLoading: boolean;
-  debouncedValue: string;
+  clearInput: () => void;
 }
 export default function SearchResult({
   cities,
   error,
   isLoading,
-  debouncedValue,
+  clearInput,
 }: SearchResultProps) {
+  const { handleSetNewCity } = useContext(WeatherContext);
   let result: ReactNode = null;
-  if (!isLoading && debouncedValue.length > 2 && cities.length > 0) {
+  if (!isLoading && cities.length > 0) {
     result = (
-      <ul className={`${styles.resultList} ${styles.resultPosition}`}>
+      <ul className={styles.resultList}>
         {cities.map((city) => {
           return (
-            <li key={city.id} className={styles.listElement}>
-              <span className={styles.cityName}>{city.name}</span>,{" "}
-              {city.admin1}
-              {city.admin2 ? `, ${city.admin2}` : ""}, {city.country}
-            </li>
+            <button
+              key={city.id}
+              className={styles.listButton}
+              onClick={() => {
+                clearInput();
+                handleSetNewCity(city);
+              }}
+            >
+              <li>
+                <span className={styles.cityName}>{city.name}</span>,{" "}
+                {city.admin1}
+                {city.admin2 ? `, ${city.admin2}` : ""}, {city.country}
+              </li>
+            </button>
           );
         })}
       </ul>
     );
   } else if (error) result = <Error>{error}</Error>;
-  else if (!isLoading && debouncedValue.length > 2 && cities.length === 0)
-    result = <p>No results found</p>;
-  else if (isLoading) result = <p>Loading data...</p>;
+  else if (!isLoading && cities.length === 0)
+    result = <p className={styles.p}>No results found</p>;
+  else if (isLoading) result = <p className={styles.p}>Loading data...</p>;
   return <div className={styles.resultPosition}>{result}</div>;
 }
