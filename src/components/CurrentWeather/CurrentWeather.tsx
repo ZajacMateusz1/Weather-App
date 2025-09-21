@@ -2,13 +2,14 @@ import { useContext } from "react";
 import WeatherContext from "../../store/weather-context.tsx";
 import WeatherInfoCard from "../WeatherInfoCard/WeatherInfoCard.tsx";
 import Error from "../Error/Error.tsx";
+import Loading from "../Loading/Loading.tsx";
 import styles from "./CurrentWeather.module.scss";
 export default function CurrentWeather() {
   const { hourlyWeather, hourlyWeatherError, hourlyWeatherIsLoading, city } =
     useContext(WeatherContext);
   if (hourlyWeatherError) return <Error>{hourlyWeatherError}</Error>;
   if (hourlyWeatherIsLoading || !hourlyWeather) {
-    return <p className={styles.pLoading}>Loading...</p>;
+    return <Loading />;
   }
   const values = hourlyWeather.hourly;
   const units = hourlyWeather.hourly_units;

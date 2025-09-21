@@ -13,7 +13,7 @@ interface HourlyWeather {
   pressure_msl: number[];
   wind_speed_10m: number[];
   precipitation_probability: number[];
-  time: string;
+  time: string[];
 }
 interface HourlyWeatherUnits {
   temperature_2m: string;

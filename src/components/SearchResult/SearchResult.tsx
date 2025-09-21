@@ -2,6 +2,7 @@ import { useContext } from "react";
 import type { ReactNode } from "react";
 import WeatherContext from "../../store/weather-context.tsx";
 import Error from "../Error/Error.tsx";
+import Loading from "../Loading/Loading.tsx";
 import type { City } from "../../types.ts";
 import styles from "./SearchResult.module.scss";
 interface SearchResultProps {
@@ -19,7 +20,7 @@ export default function SearchResult({
   const { handleSetNewCity } = useContext(WeatherContext);
   let result: ReactNode = null;
   if (error) result = <Error>{error}</Error>;
-  if (isLoading) result = <p className={styles.p}>Loading data...</p>;
+  if (isLoading) result = <Loading />;
   if (!isLoading && cities!.length > 0) {
     result = (
       <ul className={styles.resultList}>
