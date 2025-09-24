@@ -6,6 +6,7 @@ import type {
 } from "../types.ts";
 export interface WeatherContextTypes {
   city: City;
+  lastCity: City | null;
   handleSetNewCity: (city: City) => void;
   hourlyWeather: HourlyWeatherResponse | null;
   hourlyWeatherError: string | null;
@@ -17,6 +18,7 @@ export interface WeatherContextTypes {
 }
 const WeatherContext = createContext<WeatherContextTypes>({
   city: {} as City,
+  lastCity: null,
   handleSetNewCity: () => {},
   hourlyWeather: null,
   hourlyWeatherError: "",

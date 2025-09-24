@@ -9,7 +9,8 @@ import styles from "./SearchBar.module.scss";
 
 export default function SearchBar() {
   const [userInput, setUserInput] = useState<string>("");
-  const { findUserLocation } = useContext(WeatherContext);
+  const { findUserLocation, lastCity, handleSetNewCity } =
+    useContext(WeatherContext);
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     setUserInput(e.target.value);
   }
@@ -40,6 +41,22 @@ export default function SearchBar() {
           ⊕
         </button>
       </div>
+      {userInput.length > 0 && userInput.length <= 2 && lastCity !== null && (
+        <>
+          <p className={styles.recentSearch}>Recent search</p>
+          <button
+            className={styles.lastCityButton}
+            onClick={() => {
+              handleSetNewCity(lastCity);
+              clearInput();
+            }}
+          >
+            <span className={styles.cityName}>{lastCity.name}</span>,{" "}
+            {lastCity.admin1}
+            {lastCity.admin2 ? `, ${lastCity.admin2}` : ""}, {lastCity.country}
+          </button>
+        </>
+      )}
       {userInput.length > 2 && (
         <SearchResult
           cities={cities}

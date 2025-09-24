@@ -8,6 +8,10 @@ export interface City {
   admin2: string;
   timezone: string;
 }
+export interface CityStateObj {
+  currentCity: City;
+  lastCity: City | null;
+}
 interface HourlyWeather {
   temperature_2m: number[];
   pressure_msl: number[];

@@ -27,3 +27,25 @@
     transform: scale(1.1);
   }
 }
+@mixin list-button {
+  padding: 0.7rem 0.5rem;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $font-color-main;
+  cursor: pointer;
+  &:hover {
+    background-color: #ddd;
+  }
+  .cityName {
+    font-weight: bold;
+  }
+}
+
+.lastCityButton {
+  @include list-button;
+}
+.recentSearch {
+  font-size: 1.2rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.2rem;
+}
