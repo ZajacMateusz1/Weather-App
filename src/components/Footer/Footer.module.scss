@@ -1,9 +1,41 @@
 @use "../../styles/variables" as *;
+@use "../../styles/mixin" as *;
+.ul {
+  list-style: none;
+}
+.li {
+  margin: 0.5rem 0;
+  @include responsive(sm) {
+    margin: 0.7rem 0;
+  }
+  @include responsive(md) {
+    margin: 1rem 0;
+  }
+  @include responsive(lg) {
+    margin: 1.5rem 0;
+  }
+}
 .link {
-  display: block;
-  margin: 1rem 0;
+  position: relative;
   font-size: 1.3rem;
   color: $font-color-main;
   text-decoration: none;
   font-weight: bold;
+  transition: 0.3s;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: $font-color-main;
+    height: 2px;
+    width: 100%;
+    transition: 0.2s transform;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  &:hover::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
 }

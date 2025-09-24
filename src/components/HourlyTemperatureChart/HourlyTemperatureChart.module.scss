@@ -1,6 +1,17 @@
+@use "../../styles/mixin" as *;
 .chartSection {
   overflow-x: auto;
   padding: 2rem;
+  font-size: 0.9rem;
+  @include responsive(sm) {
+    padding: 2.5rem;
+  }
+  @include responsive(md) {
+    padding: 3rem;
+  }
+  @include responsive(lg) {
+    padding: 3.5rem 0;
+  }
 }
 .h2 {
   padding: 1rem;

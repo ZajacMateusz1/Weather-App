@@ -1,3 +1,4 @@
+@use "sass:map";
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -6,4 +7,15 @@
 
 @mixin border-radius {
   border-radius: 0.5rem;
+}
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+);
+@mixin responsive($size) {
+  @media (min-width: map.get($breakpoints,$size)) {
+    @content;
+  }
 }

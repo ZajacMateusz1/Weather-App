@@ -4,6 +4,15 @@
   flex-direction: column;
   gap: 1rem;
   padding: 2rem;
+  @include responsive(sm) {
+    padding: 2.5rem;
+  }
+  @include responsive(md) {
+    padding: 3rem;
+  }
+  @include responsive(lg) {
+    padding: 3.5rem 0;
+  }
 }
 .weatherInfo {
   display: grid;

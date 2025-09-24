@@ -1,4 +1,5 @@
 @use "./variables" as *;
+@use "./mixin" as *;
 *,
 *::after,
 *::before {
@@ -9,6 +10,15 @@
 html {
   font-size: 62.5%;
   background-color: $bg-color;
+  @include responsive(sm) {
+    font-size: 12px;
+  }
+  @include responsive(md) {
+    font-size: 13px;
+  }
+  @include responsive(lg) {
+    font-size: 14px;
+  }
 }
 #root {
   margin: auto;
