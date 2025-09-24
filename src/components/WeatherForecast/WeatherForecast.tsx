@@ -16,7 +16,7 @@ export default function WeatherForecast() {
   const units = dailyWeather.daily_units;
   return (
     <section id="weatherForecast" className={styles.section}>
-      <h2>7-days weather forecast</h2>
+      <h2 className={styles.h2}>7-days weather forecast</h2>
       <table className={styles.table}>
         <thead className={styles.tableHead}>
           <tr>

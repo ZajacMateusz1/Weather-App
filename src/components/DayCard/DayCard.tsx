@@ -1,3 +1,4 @@
+import styles from "./DayCard.module.scss";
 interface DayCardProps {
   maxTempetature: number;
   maxTempetatureUnit: string;
@@ -17,12 +18,12 @@ export default function DayCard({
   sunrise,
 }: DayCardProps) {
   return (
-    <tr>
+    <tr className={styles.tr}>
       <td className="date">{date}</td>
       <td className="sunrise">{sunrise.slice(11)}</td>
       <td className="temperature">
         {maxTempetature}
-        {maxTempetatureUnit}/{minTempetature}
+        {maxTempetatureUnit} / {minTempetature}
         {minTempetatureUnit}
       </td>
       <td className="icon">{icon}</td>

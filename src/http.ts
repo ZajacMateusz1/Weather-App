@@ -18,7 +18,7 @@ export async function fetchHourlyWeatherInfo(
   cityLongitude: number
 ) {
   const response = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${cityLatitude}&longitude=${cityLongitude}&hourly=temperature_2m,wind_speed_10m,precipitation_probability,pressure_msl&timezone=auto&forecast_days=1`
+    `https://api.open-meteo.com/v1/forecast?latitude=${cityLatitude}&longitude=${cityLongitude}&hourly=temperature_2m,wind_speed_10m,precipitation_probability,pressure_msl&timezone=auto&forecast_hours=24`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch data!");
@@ -37,6 +37,6 @@ export async function fetchDailyWeatherInfo(
   if (!response.ok) {
     throw new Error("Failed to fetch data!");
   }
-  const data = response.json();
+  const data = await response.json();
   return data;
 }
