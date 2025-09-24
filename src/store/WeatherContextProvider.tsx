@@ -1,9 +1,13 @@
 import { useCallback, useState, type ReactNode } from "react";
 import useFetch from "../hooks/useFetch.ts";
-import { fetchDailyWeatherInfo } from "../http.ts";
+import { fetchHourlyWeatherInfo, fetchDailyWeatherInfo } from "../http.ts";
 import WeatherContext from "./weather-context.tsx";
 import type { WeatherContextTypes } from "./weather-context.tsx";
-import type { City, HourlyWeatherResponse } from "../types.ts";
+import type {
+  City,
+  HourlyWeatherResponse,
+  DailyWeatherResponse,
+} from "../types.ts";
 const startCity: City = {
   admin1: "Masovian",
   admin2: "Warszawa",
@@ -24,21 +28,33 @@ export default function WeatherContextProvider({
   function handleSetNewCity(city: City) {
     setCurrentCity(city);
   }
-  const fetchDailyWeatherInfoCallback = useCallback(
-    () => fetchDailyWeatherInfo(currentCity.latitude, currentCity.longitude),
+  const fetchHourlyWeatherInfoCallback = useCallback(
+    () => fetchHourlyWeatherInfo(currentCity.latitude, currentCity.longitude),
     [currentCity.latitude, currentCity.longitude]
   );
   const {
     data: hourlyWeather,
     error: hourlyWeatherError,
     isLoading: hourlyWeatherIsLoading,
-  } = useFetch<HourlyWeatherResponse>(fetchDailyWeatherInfoCallback);
+  } = useFetch<HourlyWeatherResponse>(fetchHourlyWeatherInfoCallback);
+  const fetchDailyWeatherInfoCallback = useCallback(
+    () => fetchDailyWeatherInfo(currentCity.latitude, currentCity.longitude),
+    [currentCity.latitude, currentCity.longitude]
+  );
+  const {
+    data: dailyWeather,
+    error: dailyWeatherError,
+    isLoading: dailyyWeatherIsLoading,
+  } = useFetch<DailyWeatherResponse>(fetchDailyWeatherInfoCallback);
   const weatherCtx: WeatherContextTypes = {
     city: currentCity,
     handleSetNewCity: handleSetNewCity,
-    hourlyWeather: hourlyWeather ?? null,
+    hourlyWeather: hourlyWeather,
     hourlyWeatherError: hourlyWeatherError,
     hourlyWeatherIsLoading: hourlyWeatherIsLoading,
+    dailyWeather: dailyWeather,
+    dailyWeatherError: dailyWeatherError,
+    dailyyWeatherIsLoading: dailyyWeatherIsLoading,
   };
   return <WeatherContext value={weatherCtx}>{children}</WeatherContext>;
 }

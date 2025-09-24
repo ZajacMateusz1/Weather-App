@@ -1,12 +1,31 @@
-import styles from "./DayCard.module.scss";
 interface DayCardProps {
-  children: string;
+  maxTempetature: number;
+  maxTempetatureUnit: string;
+  minTempetature: number;
+  minTempetatureUnit: string;
   icon: string;
+  date: string;
+  sunrise: string;
 }
-export default function DayCard({ children, icon }: DayCardProps) {
+export default function DayCard({
+  maxTempetature,
+  maxTempetatureUnit,
+  minTempetature,
+  minTempetatureUnit,
+  icon,
+  date,
+  sunrise,
+}: DayCardProps) {
   return (
-    <li className={styles.li}>
-      {children} <span className="icon">{icon}</span>
-    </li>
+    <tr>
+      <td className="date">{date}</td>
+      <td className="sunrise">{sunrise.slice(11)}</td>
+      <td className="temperature">
+        {maxTempetature}
+        {maxTempetatureUnit}/{minTempetature}
+        {minTempetatureUnit}
+      </td>
+      <td className="icon">{icon}</td>
+    </tr>
   );
 }

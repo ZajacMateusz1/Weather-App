@@ -20,7 +20,7 @@ export default function SearchResult({
   const { handleSetNewCity } = useContext(WeatherContext);
   let result: ReactNode = null;
   if (error) result = <Error>{error}</Error>;
-  if (isLoading) result = <Loading />;
+  if (isLoading && !cities) result = <Loading />;
   if (!isLoading && cities!.length > 0) {
     result = (
       <ul className={styles.resultList}>

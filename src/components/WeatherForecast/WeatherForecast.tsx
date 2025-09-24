@@ -1,18 +1,48 @@
+import { useContext } from "react";
+import WeatherContext from "../../store/weather-context.tsx";
 import DayCard from "../DayCard/DayCard.tsx";
+import Error from "../Error/Error.tsx";
+import Loading from "../Loading/Loading.tsx";
+import weatherIcons from "../../assets/weatherIcons.ts";
 import styles from "./WeatherForecast.module.scss";
 export default function WeatherForecast() {
+  const { dailyWeather, dailyWeatherError, dailyyWeatherIsLoading } =
+    useContext(WeatherContext);
+  if (dailyWeatherError) return <Error>{dailyWeatherError}</Error>;
+  if (dailyyWeatherIsLoading || !dailyWeather) {
+    return <Loading />;
+  }
+  const values = dailyWeather.daily;
+  const units = dailyWeather.daily_units;
   return (
     <section id="weatherForecast" className={styles.section}>
       <h2>7-days weather forecast</h2>
-      <ol className={styles.ol}>
-        <DayCard icon="☀️">Mon 23°/15°</DayCard>
-        <DayCard icon="☀️">Mon 23°/15°</DayCard>
-        <DayCard icon="☀️">Mon 23°/15°</DayCard>
-        <DayCard icon="☀️">Mon 23°/15°</DayCard>
-        <DayCard icon="☀️">Mon 23°/15°</DayCard>
-        <DayCard icon="☀️">Mon 23°/15°</DayCard>
-        <DayCard icon="☀️">Mon 23°/15°</DayCard>
-      </ol>
+      <table className={styles.table}>
+        <thead className={styles.tableHead}>
+          <tr>
+            <th>Date</th>
+            <th>Sunrise</th>
+            <th>Temperature</th>
+            <th>Weather</th>
+          </tr>
+        </thead>
+        <tbody>
+          {values.temperature_2m_max.map((maxTemperature, i) => {
+            return (
+              <DayCard
+                key={values.time[i]}
+                maxTempetature={maxTemperature}
+                maxTempetatureUnit={units.temperature_2m_max}
+                minTempetature={values.temperature_2m_min[i]}
+                minTempetatureUnit={units.temperature_2m_min}
+                icon={weatherIcons[values.weather_code[i]]}
+                date={values.time[i]}
+                sunrise={values.sunrise[i]}
+              />
+            );
+          })}
+        </tbody>
+      </table>
     </section>
   );
 }

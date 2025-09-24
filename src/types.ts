@@ -25,3 +25,19 @@ export interface HourlyWeatherResponse {
   hourly: HourlyWeather;
   hourly_units: HourlyWeatherUnits;
 }
+
+interface DailyWeather {
+  sunrise: string[];
+  temperature_2m_max: number[];
+  temperature_2m_min: number[];
+  time: string[];
+  weather_code: number[];
+}
+interface DailyWeatherUnits {
+  temperature_2m_max: string;
+  temperature_2m_min: string;
+}
+export interface DailyWeatherResponse {
+  daily: DailyWeather;
+  daily_units: DailyWeatherUnits;
+}
