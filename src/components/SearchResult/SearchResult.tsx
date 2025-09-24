@@ -19,12 +19,12 @@ export default function SearchResult({
 }: SearchResultProps) {
   const { handleSetNewCity } = useContext(WeatherContext);
   let result: ReactNode = null;
-  if (error) result = <Error>{error}</Error>;
-  if (isLoading && !cities) result = <Loading />;
-  if (!isLoading && cities!.length > 0) {
-    result = (
+  if (error) return <Error>{error}</Error>;
+  if (isLoading || cities === null) return <Loading />;
+  if (!isLoading && cities.length > 0) {
+    return (
       <ul className={styles.resultList}>
-        {cities!.map((city) => {
+        {cities.map((city) => {
           return (
             <button
               key={city.id}
@@ -44,7 +44,8 @@ export default function SearchResult({
         })}
       </ul>
     );
-  } else if (!isLoading && cities!.length === 0)
+  }
+  if (!isLoading && cities.length === 0)
     result = <p className={styles.p}>No results found</p>;
   return <div className={styles.resultPosition}>{result}</div>;
 }

@@ -22,4 +22,8 @@
   border: 1px solid $font-color-main;
   background-color: transparent;
   font-size: 1.5rem;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
