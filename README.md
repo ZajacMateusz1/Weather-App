@@ -1,6 +1,6 @@
 # Weather App 🌦️
 
-## Live demo: ...
+## Live demo: https://zajacmateusz1.github.io/Weather-App/
 
 ## Repo: https://github.com/ZajacMateusz1/Weather-App
 
