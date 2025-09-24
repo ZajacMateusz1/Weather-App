@@ -2,7 +2,7 @@
 
 ## Live demo: https://zajacmateusz1.github.io/Weather-App/
 
-## Mój profil na GitHub: https://github.com/ZajacMateusz1
+## Mój profil na GitHub: [ZajacMateusz1](https://github.com/ZajacMateusz1)
 
 ## Opis
 
