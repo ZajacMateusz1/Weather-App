@@ -13,6 +13,7 @@ export interface WeatherContextTypes {
   dailyWeather: DailyWeatherResponse | null;
   dailyWeatherError: string | null;
   dailyyWeatherIsLoading: boolean;
+  findUserLocation: () => void;
 }
 const WeatherContext = createContext<WeatherContextTypes>({
   city: {} as City,
@@ -23,5 +24,6 @@ const WeatherContext = createContext<WeatherContextTypes>({
   dailyWeather: null,
   dailyWeatherError: null,
   dailyyWeatherIsLoading: false,
+  findUserLocation: () => {},
 });
 export default WeatherContext;

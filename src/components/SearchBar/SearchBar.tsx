@@ -1,4 +1,5 @@
-import { useState, type ChangeEvent, useCallback } from "react";
+import { useState, type ChangeEvent, useCallback, useContext } from "react";
+import WeatherContext from "../../store/weather-context.tsx";
 import SearchResult from "../SearchResult/SearchResult.tsx";
 import useFetch from "../../hooks/useFetch.ts";
 import useDebounce from "../../hooks/useDebounce.ts";
@@ -8,7 +9,7 @@ import styles from "./SearchBar.module.scss";
 
 export default function SearchBar() {
   const [userInput, setUserInput] = useState<string>("");
-
+  const { findUserLocation } = useContext(WeatherContext);
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     setUserInput(e.target.value);
   }
@@ -35,7 +36,9 @@ export default function SearchBar() {
           value={userInput}
           onChange={(e) => handleInputChange(e)}
         />
-        <button className={styles.locationButton}>⊕</button>
+        <button className={styles.locationButton} onClick={findUserLocation}>
+          ⊕
+        </button>
       </div>
       {userInput.length > 2 && (
         <SearchResult

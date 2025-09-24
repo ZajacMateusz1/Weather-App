@@ -46,6 +46,16 @@ export default function WeatherContextProvider({
     error: dailyWeatherError,
     isLoading: dailyyWeatherIsLoading,
   } = useFetch<DailyWeatherResponse>(fetchDailyWeatherInfoCallback);
+  function findUserLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const currentLocation = {
+        name: "your location",
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      } as City;
+      setCurrentCity(currentLocation);
+    });
+  }
   const weatherCtx: WeatherContextTypes = {
     city: currentCity,
     handleSetNewCity: handleSetNewCity,
@@ -55,6 +65,7 @@ export default function WeatherContextProvider({
     dailyWeather: dailyWeather,
     dailyWeatherError: dailyWeatherError,
     dailyyWeatherIsLoading: dailyyWeatherIsLoading,
+    findUserLocation: findUserLocation,
   };
   return <WeatherContext value={weatherCtx}>{children}</WeatherContext>;
 }
