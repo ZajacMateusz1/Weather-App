@@ -25,11 +25,6 @@ interface HourlyWeatherUnits {
   wind_speed_10m: string;
   precipitation_probability: string;
 }
-export interface HourlyWeatherResponse {
-  hourly: HourlyWeather;
-  hourly_units: HourlyWeatherUnits;
-}
-
 interface DailyWeather {
   sunrise: string[];
   temperature_2m_max: number[];
@@ -41,7 +36,9 @@ interface DailyWeatherUnits {
   temperature_2m_max: string;
   temperature_2m_min: string;
 }
-export interface DailyWeatherResponse {
+export interface WeatherResponse {
+  hourly: HourlyWeather;
+  hourly_units: HourlyWeatherUnits;
   daily: DailyWeather;
   daily_units: DailyWeatherUnits;
 }

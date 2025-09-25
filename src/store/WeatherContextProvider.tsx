@@ -1,14 +1,9 @@
 import { useCallback, useState, type ReactNode } from "react";
 import useFetch from "../hooks/useFetch.ts";
-import { fetchHourlyWeatherInfo, fetchDailyWeatherInfo } from "../http.ts";
+import { fetchWeatherInfo } from "../http.ts";
 import WeatherContext from "./weather-context.tsx";
 import type { WeatherContextTypes } from "./weather-context.tsx";
-import type {
-  City,
-  CityStateObj,
-  HourlyWeatherResponse,
-  DailyWeatherResponse,
-} from "../types.ts";
+import type { City, CityStateObj, WeatherResponse } from "../types.ts";
 const defaultCityObj: CityStateObj = {
   currentCity: {
     admin1: "Masovian",
@@ -45,32 +40,19 @@ export default function WeatherContextProvider({
     setCityObj(newCityObj);
     localStorage.setItem("startCityObj", JSON.stringify(newCityObj));
   }
-  const fetchHourlyWeatherInfoCallback = useCallback(
+  const fetchWeatherInfoCallback = useCallback(
     () =>
-      fetchHourlyWeatherInfo(
+      fetchWeatherInfo(
         cityObj.currentCity.latitude,
         cityObj.currentCity.longitude
       ),
     [cityObj.currentCity.latitude, cityObj.currentCity.longitude]
   );
   const {
-    data: hourlyWeather,
-    error: hourlyWeatherError,
-    isLoading: hourlyWeatherIsLoading,
-  } = useFetch<HourlyWeatherResponse>(fetchHourlyWeatherInfoCallback);
-  const fetchDailyWeatherInfoCallback = useCallback(
-    () =>
-      fetchDailyWeatherInfo(
-        cityObj.currentCity.latitude,
-        cityObj.currentCity.longitude
-      ),
-    [cityObj.currentCity.latitude, cityObj.currentCity.longitude]
-  );
-  const {
-    data: dailyWeather,
-    error: dailyWeatherError,
-    isLoading: dailyyWeatherIsLoading,
-  } = useFetch<DailyWeatherResponse>(fetchDailyWeatherInfoCallback);
+    data: weather,
+    error: weatherError,
+    isLoading: weatherIsLoading,
+  } = useFetch<WeatherResponse>(fetchWeatherInfoCallback);
   function findUserLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       const currentLocation = {
@@ -78,11 +60,9 @@ export default function WeatherContextProvider({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       } as City;
-      setCityObj((prev) => {
-        return {
-          ...prev,
-          currentCity: currentLocation,
-        };
+      setCityObj({
+        currentCity: currentLocation,
+        lastCity: cityObj.currentCity,
       });
     });
   }
@@ -90,12 +70,9 @@ export default function WeatherContextProvider({
     city: cityObj.currentCity,
     lastCity: cityObj.lastCity,
     handleSetNewCity: handleSetNewCity,
-    hourlyWeather: hourlyWeather,
-    hourlyWeatherError: hourlyWeatherError,
-    hourlyWeatherIsLoading: hourlyWeatherIsLoading,
-    dailyWeather: dailyWeather,
-    dailyWeatherError: dailyWeatherError,
-    dailyyWeatherIsLoading: dailyyWeatherIsLoading,
+    weather: weather,
+    weatherError: weatherError,
+    weatherIsLoading: weatherIsLoading,
     findUserLocation: findUserLocation,
   };
   return <WeatherContext value={weatherCtx}>{children}</WeatherContext>;

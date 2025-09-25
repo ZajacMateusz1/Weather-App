@@ -6,14 +6,14 @@ import Loading from "../Loading/Loading.tsx";
 import weatherIcons from "../../assets/weatherIcons.ts";
 import styles from "./WeatherForecast.module.scss";
 export default function WeatherForecast() {
-  const { dailyWeather, dailyWeatherError, dailyyWeatherIsLoading } =
+  const { weather, weatherError, weatherIsLoading } =
     useContext(WeatherContext);
-  if (dailyWeatherError) return <Error>{dailyWeatherError}</Error>;
-  if (dailyyWeatherIsLoading || !dailyWeather) {
+  if (weatherError) return <Error>{weatherError}</Error>;
+  if (weatherIsLoading || !weather) {
     return <Loading />;
   }
-  const values = dailyWeather.daily;
-  const units = dailyWeather.daily_units;
+  const values = weather.daily;
+  const units = weather.daily_units;
   return (
     <section id="weatherForecast" className={styles.section}>
       <h2 className={styles.h2}>7-days weather forecast</h2>

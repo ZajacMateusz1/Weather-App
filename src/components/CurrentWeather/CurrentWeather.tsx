@@ -5,14 +5,14 @@ import Error from "../Error/Error.tsx";
 import Loading from "../Loading/Loading.tsx";
 import styles from "./CurrentWeather.module.scss";
 export default function CurrentWeather() {
-  const { hourlyWeather, hourlyWeatherError, hourlyWeatherIsLoading, city } =
+  const { weather, weatherError, weatherIsLoading, city } =
     useContext(WeatherContext);
-  if (hourlyWeatherError) return <Error>{hourlyWeatherError}</Error>;
-  if (hourlyWeatherIsLoading || !hourlyWeather) {
+  if (weatherError) return <Error>{weatherError}</Error>;
+  if (weatherIsLoading || !weather) {
     return <Loading />;
   }
-  const values = hourlyWeather.hourly;
-  const units = hourlyWeather.hourly_units;
+  const values = weather.hourly;
+  const units = weather.hourly_units;
   return (
     <main className={styles.main}>
       <h2>Current weather in {city.name}</h2>
