@@ -60,10 +60,7 @@ export default function WeatherContextProvider({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       } as City;
-      setCityObj({
-        currentCity: currentLocation,
-        lastCity: cityObj.currentCity,
-      });
+      handleSetNewCity(currentLocation);
     });
   }
   const weatherCtx: WeatherContextTypes = {
